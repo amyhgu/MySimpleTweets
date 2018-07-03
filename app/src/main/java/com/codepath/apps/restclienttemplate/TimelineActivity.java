@@ -120,7 +120,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // check request code and result code
-//        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // use data parameter
             newTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
             tweets.add(0, newTweet);
@@ -128,7 +128,7 @@ public class TimelineActivity extends AppCompatActivity {
             rvTweets.scrollToPosition(0);
             // Toast success message to display temporarily on screen
             Toast.makeText(this, "Tweet posted", Toast.LENGTH_SHORT).show();
-//        }
+        }
 
 
     }

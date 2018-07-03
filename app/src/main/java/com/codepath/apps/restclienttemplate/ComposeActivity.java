@@ -36,7 +36,6 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
         btCompose = (Button) findViewById(R.id.btCompose);
         etCompose = (EditText) findViewById(R.id.etCompose);
-//        String message = etCompose.getText().toString();
 
         btCompose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +47,9 @@ public class ComposeActivity extends AppCompatActivity {
                             Tweet tweet = Tweet.fromJSON(response);
                             Intent i = new Intent(context, TimelineActivity.class);
                             i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-//                            i.putExtra("message", message);
-//                            i.putExtra("code", 10);
-//                            setResult(RESULT_OK, i);
+                            i.putExtra("message", etCompose.getText().toString());
+                            i.putExtra("code", 10);
+                            setResult(RESULT_OK, i);
                             context.startActivity(i);
                             finish();
                         } catch (JSONException e) {
