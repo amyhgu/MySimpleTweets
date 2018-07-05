@@ -19,6 +19,9 @@ public class Tweet {
     public User user;
     public String createdAt;
     public String relativeDate;
+    public String id;
+    public boolean favorited;
+    public boolean retweeted;
 
     // required for Parceler
     public Tweet() {}
@@ -33,6 +36,9 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         tweet.relativeDate = getRelativeTimeAgo(tweet.createdAt);
+        tweet.id = jsonObject.getString("id_str");
+        tweet.favorited = jsonObject.getBoolean("favorited");
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
         return tweet;
     }
 
@@ -52,5 +58,45 @@ public class Tweet {
         }
 
         return relativeDate;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getRelativeDate() {
+        return relativeDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
+    }
+
+    public boolean isRetweeted() {
+        return retweeted;
+    }
+
+    public void setRetweeted(boolean retweeted) {
+        this.retweeted = retweeted;
     }
 }

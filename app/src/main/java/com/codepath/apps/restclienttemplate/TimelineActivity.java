@@ -79,6 +79,19 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
+    // so tweets refresh after favoriting/retweeting
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchTimelineAsync(0);
+    }
+
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        populateTimeline();
+//    }
+
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
@@ -210,7 +223,7 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-//    public void showProfileView() {
+    //    public void showProfileView() {
 //        Intent intent = new Intent(this, )
 //    }
 }

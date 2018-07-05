@@ -20,8 +20,9 @@
             android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:maxLength="140"
-            android:hint="Compose your tweet here"/>
+            android:hint="What's happening?"/>
 
     </android.support.design.widget.TextInputLayout>
 

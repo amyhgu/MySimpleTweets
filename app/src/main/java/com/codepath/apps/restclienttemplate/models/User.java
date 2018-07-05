@@ -26,4 +26,20 @@ public class User {
 
         return user;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public String getScreenName() {
+        return "@" + screenName;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
 }
