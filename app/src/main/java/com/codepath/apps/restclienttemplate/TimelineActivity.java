@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -53,9 +54,10 @@ public class TimelineActivity extends AppCompatActivity {
         tweetAdapter = new TweetAdapter(tweets, new ClickListener() {
             @Override
             public void onComposeClicked(int position, String screenname) {
-                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-                intent.putExtra("replying_to", screenname);
-                startActivityForResult(intent, REQUEST_CODE);
+                showComposeDialog();
+//                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+//                intent.putExtra("replying_to", screenname);
+//                startActivityForResult(intent, REQUEST_CODE);
             }
         });
         // set up RecyclerView (layout manager, use adapter)
@@ -87,6 +89,13 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_red_light);
 
     }
+
+    private void showComposeDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeFragment composeFragment = ComposeFragment.newInstance("Some Title");
+        composeFragment.show(fm, "fragment_edit_name");
+    }
+
 
     // so tweets refresh after favoriting/retweeting
     @Override
@@ -228,7 +237,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.miCompose:
-                composeMessage();
+                showComposeDialog();
                 return true;
 //            case R.id.miProfile:
 //                showProfileView();
