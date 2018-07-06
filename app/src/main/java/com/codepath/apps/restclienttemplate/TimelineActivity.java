@@ -28,9 +28,10 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
+    private TwitterHelper helper;
     private SwipeRefreshLayout swipeContainer;
-    TweetAdapter tweetAdapter;
-    ArrayList<Tweet> tweets;
+    static TweetAdapter tweetAdapter;
+    static ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     private final int REQUEST_CODE = 10;
     Tweet newTweet;
@@ -42,13 +43,21 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         client = TwitterApp.getRestClient(this);
+        helper = new TwitterHelper();
 
         // find RecyclerView
         rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
         // initiate arraylist (data source)
         tweets = new ArrayList<>();
         // construct adapter from data source
-        tweetAdapter = new TweetAdapter(tweets);
+        tweetAdapter = new TweetAdapter(tweets, new ClickListener() {
+            @Override
+            public void onComposeClicked(int position, String screenname) {
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                intent.putExtra("replying_to", screenname);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
         // set up RecyclerView (layout manager, use adapter)
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         // set adapter

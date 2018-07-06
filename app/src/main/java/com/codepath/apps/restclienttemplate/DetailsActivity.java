@@ -1,10 +1,12 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -24,6 +26,8 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView ivFavorite;
     ImageView ivRetweet;
     ImageView ivEmbedded;
+    ImageView ivCompose;
+    private int REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,10 @@ public class DetailsActivity extends AppCompatActivity {
         ivFavorite = (ImageView) findViewById(R.id.ivFavorite);
         ivRetweet = (ImageView) findViewById(R.id.ivRetweet);
         ivEmbedded = (ImageView) findViewById(R.id.ivEmbedded);
+        ivCompose = (ImageView) findViewById(R.id.ivCompose);
 
         // Extract tweet from intent extras
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
-        // Use tweet object to populate views with content
-//        String imageUrl = tweet.getUser().getProfileImageUrl();
         tvBody.setText(tweet.getBody());
         tvUserName.setText(tweet.getUser().getName());
         tvRelativeDate.setText(tweet.getRelativeDate());
@@ -84,6 +87,28 @@ public class DetailsActivity extends AppCompatActivity {
                 helper.retweetItem(tweet, client, ivRetweet);
             }
         });
+
+        ivCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this, ComposeActivity.class);
+                intent.putExtra("replying_to", tweet.getUser().getScreenName());
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check request code and result code
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // use data parameter
+            Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+            TimelineActivity.tweets.add(0, tweet);
+            TimelineActivity.tweetAdapter.notifyItemInserted(0);
+            // Toast success message to display temporarily on screen
+            Toast.makeText(this, "Tweet posted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    @Override

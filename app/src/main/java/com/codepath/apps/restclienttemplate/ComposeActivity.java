@@ -26,7 +26,9 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etCompose;
     TwitterClient client;
     Context context;
+    String replying_to;
     public final static String TAG = "TwitterClient";
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,11 @@ public class ComposeActivity extends AppCompatActivity {
         btCompose = (Button) findViewById(R.id.btCompose);
         etCompose = (EditText) findViewById(R.id.etCompose);
 
+        if (getCallingActivity().getClassName().equals(DetailsActivity.class.getName())) {
+            replying_to = getIntent().getStringExtra("replying_to") + " ";
+            etCompose.setText(replying_to);
+        }
+
         btCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +52,11 @@ public class ComposeActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             Tweet tweet = Tweet.fromJSON(response);
-                            Intent i = new Intent(context, TimelineActivity.class);
+                            if (getCallingActivity().getClassName().equals(DetailsActivity.class.getName())) {
+                                i = new Intent(context, DetailsActivity.class);
+                            } else {
+                                i = new Intent(context, TimelineActivity.class);
+                            }
                             i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
                             i.putExtra("message", etCompose.getText().toString());
                             i.putExtra("code", 10);
