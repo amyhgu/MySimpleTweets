@@ -53,6 +53,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvRelativeDate.setText(tweet.getRelativeDate());
 
         Glide.with(context).load(tweet.getUser().getProfileImageUrl()).into(holder.ivProfileImage);
+        if (tweet.getEmbeddedUrl() != null) {
+            Glide.with(context).load(tweet.getEmbeddedUrl()).into(holder.ivEmbedded);
+        }
     }
 
     @Override
@@ -67,6 +70,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvUserName;
         public TextView tvBody;
         public TextView tvRelativeDate;
+        public TextView tvScreenName;
+        public ImageView ivEmbedded;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,6 +81,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
+            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
+            ivEmbedded = (ImageView) itemView.findViewById(R.id.ivEmbedded);
             // attach a click listener to the row
             itemView.setOnClickListener(this);
         }
