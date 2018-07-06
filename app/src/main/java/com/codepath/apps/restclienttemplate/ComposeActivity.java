@@ -39,9 +39,13 @@ public class ComposeActivity extends AppCompatActivity {
         btCompose = (Button) findViewById(R.id.btCompose);
         etCompose = (EditText) findViewById(R.id.etCompose);
 
-        if (getCallingActivity().getClassName().equals(DetailsActivity.class.getName())) {
-            replying_to = getIntent().getStringExtra("replying_to") + " ";
+        replying_to = getIntent().getStringExtra("replying_to");
+        if (replying_to != null) {
+            replying_to = replying_to + " ";
             etCompose.setText(replying_to);
+            etCompose.setSelection(etCompose.getText().length());
+        } else {
+            replying_to = "";
         }
 
         btCompose.setOnClickListener(new View.OnClickListener() {
