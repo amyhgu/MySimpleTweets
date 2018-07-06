@@ -23,6 +23,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView tvScreenName;
     ImageView ivFavorite;
     ImageView ivRetweet;
+    ImageView ivEmbedded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvScreenName = (TextView) findViewById(R.id.tvScreenName);
         ivFavorite = (ImageView) findViewById(R.id.ivFavorite);
         ivRetweet = (ImageView) findViewById(R.id.ivRetweet);
+        ivEmbedded = (ImageView) findViewById(R.id.ivEmbedded);
 
         // Extract tweet from intent extras
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
@@ -51,6 +53,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Load profile image
         Glide.with(this).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+        if (tweet.getEmbeddedUrl() != null) {
+            Glide.with(this).load(tweet.getEmbeddedUrl()).into(ivEmbedded);
+        }
 
         // Load favorite icon
         if (tweet.isFavorited()) {

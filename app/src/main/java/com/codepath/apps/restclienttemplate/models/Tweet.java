@@ -2,7 +2,6 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.text.format.DateUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -65,12 +64,7 @@ public class Tweet {
 
     public static String getMediaUrl(JSONObject jsonObject) throws JSONException {
         try {
-            JSONObject entities = jsonObject.getJSONObject("entities");
-            JSONArray media = entities.getJSONArray("media");
-            JSONObject firstPic = media.getJSONObject(0);
-            String url = firstPic.getString("media_url");
-            return url;
-//            return jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("url");
+            return jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url");
         } catch (JSONException e) {
             return null;
         }
