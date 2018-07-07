@@ -19,6 +19,8 @@ import org.parceler.Parcels;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
@@ -97,15 +99,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     // create ViewHolder class
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView ivProfileImage;
-        public TextView tvUserName;
-        public TextView tvBody;
-        public TextView tvRelativeDate;
-        public TextView tvScreenName;
-        public ImageView ivEmbedded;
-        public ImageView ivCompose;
-        public ImageView ivFavorite;
-        public ImageView ivRetweet;
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.tvBody) TextView tvBody;
+        @BindView(R.id.tvRelativeDate) TextView tvRelativeDate;
+        @BindView(R.id.tvScreenName) TextView tvScreenName;
+        @BindView(R.id.ivEmbedded) ImageView ivEmbedded;
+        @BindView(R.id.ivCompose) ImageView ivCompose;
+        @BindView(R.id.ivFavorite) ImageView ivFavorite;
+        @BindView(R.id.ivRetweet) ImageView ivRetweet;
         private WeakReference<ClickListener> listenerRef;
 
         public ViewHolder(View itemView, ClickListener listener) {
@@ -114,15 +116,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             listenerRef = new WeakReference<>(listener);
 
             // perform findViewById lookups
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-            tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-            tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
-            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
-            ivEmbedded = (ImageView) itemView.findViewById(R.id.ivEmbedded);
-            ivCompose = (ImageView) itemView.findViewById(R.id.ivCompose);
-            ivFavorite = (ImageView) itemView.findViewById(R.id.ivFavorite);
-            ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
+            ButterKnife.bind(this, itemView);
+//            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+//            tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
+//            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
+//            tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
+//            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
+//            ivEmbedded = (ImageView) itemView.findViewById(R.id.ivEmbedded);
+//            ivCompose = (ImageView) itemView.findViewById(R.id.ivCompose);
+//            ivFavorite = (ImageView) itemView.findViewById(R.id.ivFavorite);
+//            ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
 
 
             // attach a click listener to the row

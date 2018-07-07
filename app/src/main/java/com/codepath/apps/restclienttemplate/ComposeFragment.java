@@ -67,7 +67,7 @@ public class ComposeFragment extends DialogFragment implements TextView.OnEditor
 //        btCompose.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                client.sendTweet(etCompose.getText().toString(), new JsonHttpResponseHandler () {
+//                client.sendTweet(etCompose.getText().toString(), new JsonHttpResponseHandler() {
 //                    @Override
 //                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 //                        try {
@@ -81,7 +81,7 @@ public class ComposeFragment extends DialogFragment implements TextView.OnEditor
 //                            i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
 //                            i.putExtra("message", etCompose.getText().toString());
 //                            i.putExtra("code", 10);
-////                            setResult(RESULT_OK, i);
+//                            setResult(RESULT_OK, i);
 //                            context.startActivity(i);
 //                        } catch (JSONException e) {
 //                            e.printStackTrace();

@@ -66,8 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
         android:layout_alignTop="@+id/ivEmbedded"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/ic_vector_compose" />
 
     <ImageView
@@ -75,8 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
         android:layout_alignTop="@+id/ivEmbedded"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/ic_vector_heart" />
 
     <ImageView
@@ -84,7 +84,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivEmbedded"
-        android:layout_margin="5dp"
         android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/ic_vector_retweet" />
+
+    <ImageView
+        android:id="@+id/ivBorder"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivCompose"
+        android:layout_margin="5dp"
+        app:srcCompat="@color/medium_gray_50" />
 </RelativeLayout>
