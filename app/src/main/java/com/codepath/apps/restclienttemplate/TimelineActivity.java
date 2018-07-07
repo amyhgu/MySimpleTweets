@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeFragment.ComposeDialogListener {
 
     private TwitterClient client;
     private TwitterHelper helper;
@@ -65,8 +65,6 @@ public class TimelineActivity extends AppCompatActivity {
         // set adapter
         rvTweets.setAdapter(tweetAdapter);
 
-        populateTimeline();
-
         // setting up swipe-to-refresh
 
         // Lookup the swipe container view
@@ -94,6 +92,40 @@ public class TimelineActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         ComposeFragment composeFragment = ComposeFragment.newInstance("Some Title");
         composeFragment.show(fm, "fragment_edit_name");
+    }
+
+    @Override
+    public void onFinishComposeDialog(String message) {
+        client.sendTweet(message, new JsonHttpResponseHandler () {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    Tweet tweet = Tweet.fromJSON(response);
+                    tweets.add(0, tweet);
+                    tweetAdapter.notifyItemInserted(0);
+                    rvTweets.scrollToPosition(0);
+                    // Toast success message to display temporarily on screen
+                    Toast.makeText(TimelineActivity.this, "Tweet posted", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 
 
@@ -160,11 +192,11 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     private void populateTimeline() {
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("TwitterClient", response.toString());
-                showProgressBar();
                 // iterate through JSON array
                 // for each entry, deserialize JSON object
                 for (int i = 0; i < response.length(); i++) {
@@ -179,7 +211,6 @@ public class TimelineActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                hideProgressBar();
             }
 
             @Override
@@ -203,6 +234,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();            }
         });
+        hideProgressBar();
     }
 
     @Override
@@ -218,6 +250,7 @@ public class TimelineActivity extends AppCompatActivity {
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
         // Extract the action-view from the menu item
         ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        populateTimeline();
         // Return to finish
         return super.onPrepareOptionsMenu(menu);
     }

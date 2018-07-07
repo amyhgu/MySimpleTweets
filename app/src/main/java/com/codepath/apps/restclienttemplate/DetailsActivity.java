@@ -9,9 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -55,9 +58,15 @@ public class DetailsActivity extends AppCompatActivity {
         tvScreenName.setText(tweet.getUser().getScreenName());
 
         // Load profile image
-        Glide.with(this).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+        Glide.with(this)
+                .load(tweet.getUser().getProfileImageUrl())
+                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.ALL)))
+                .into(ivProfileImage);
         if (tweet.getEmbeddedUrl() != null) {
-            Glide.with(this).load(tweet.getEmbeddedUrl()).into(ivEmbedded);
+            Glide.with(this)
+                    .load(tweet.getEmbeddedUrl())
+                    .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.ALL)))
+                    .into(ivEmbedded);
         }
 
         // Load favorite icon

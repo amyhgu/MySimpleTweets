@@ -11,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
@@ -74,9 +77,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             helper.retweetOff(holder.ivRetweet);
         }
 
-        Glide.with(context).load(tweet.getUser().getProfileImageUrl()).into(holder.ivProfileImage);
+        Glide.with(context)
+                .load(tweet.getUser().getProfileImageUrl())
+                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.ALL)))
+                .into(holder.ivProfileImage);
         if (tweet.getEmbeddedUrl() != null) {
-            Glide.with(context).load(tweet.getEmbeddedUrl()).into(holder.ivEmbedded);
+            Glide.with(context)
+                    .load(tweet.getEmbeddedUrl())
+                    .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.ALL)))
+                    .into(holder.ivEmbedded);
         }
     }
 
