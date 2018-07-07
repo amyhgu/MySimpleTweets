@@ -33,8 +33,8 @@ public class TwitterClient extends OAuthBaseClient {
     public TwitterClient(Context context) {
 		super(context, REST_API_INSTANCE,
 				REST_URL,
-                context.getString(R.string.api_consumer_key),
-                context.getString(R.string.api_secret_key),
+                context.getString(R.string.api_consumer_key_2),
+                context.getString(R.string.api_secret_key_2),
 				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
