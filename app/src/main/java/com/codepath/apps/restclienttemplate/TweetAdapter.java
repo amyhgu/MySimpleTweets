@@ -117,15 +117,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
             // perform findViewById lookups
             ButterKnife.bind(this, itemView);
-//            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-//            tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-//            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-//            tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
-//            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
-//            ivEmbedded = (ImageView) itemView.findViewById(R.id.ivEmbedded);
-//            ivCompose = (ImageView) itemView.findViewById(R.id.ivCompose);
-//            ivFavorite = (ImageView) itemView.findViewById(R.id.ivFavorite);
-//            ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
 
 
             // attach a click listener to the row

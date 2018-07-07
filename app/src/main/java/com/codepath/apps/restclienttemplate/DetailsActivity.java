@@ -14,6 +14,8 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -21,15 +23,15 @@ public class DetailsActivity extends AppCompatActivity {
     Tweet tweet;
     TwitterClient client;
     TwitterHelper helper;
-    ImageView ivProfileImage;
-    TextView tvBody;
-    TextView tvUserName;
-    TextView tvRelativeDate;
-    TextView tvScreenName;
-    ImageView ivFavorite;
-    ImageView ivRetweet;
-    ImageView ivEmbedded;
-    ImageView ivCompose;
+    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+    @BindView(R.id.tvBody) TextView tvBody;
+    @BindView(R.id.tvUserName) TextView tvUserName;
+    @BindView(R.id.tvRelativeDate) TextView tvRelativeDate;
+    @BindView(R.id.tvScreenName) TextView tvScreenName;
+    @BindView(R.id.ivFavorite) ImageView ivFavorite;
+    @BindView(R.id.ivRetweet) ImageView ivRetweet;
+    @BindView(R.id.ivEmbedded) ImageView ivEmbedded;
+    @BindView(R.id.ivCompose) ImageView ivCompose;
     private int REQUEST_CODE = 10;
 
     @Override
@@ -40,15 +42,7 @@ public class DetailsActivity extends AppCompatActivity {
         helper = new TwitterHelper();
 
         // Fetch views
-        ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
-        tvBody = (TextView) findViewById(R.id.tvBody);
-        tvUserName = (TextView) findViewById(R.id.tvUserName);
-        tvRelativeDate = (TextView) findViewById(R.id.tvRelativeDate);
-        tvScreenName = (TextView) findViewById(R.id.tvScreenName);
-        ivFavorite = (ImageView) findViewById(R.id.ivFavorite);
-        ivRetweet = (ImageView) findViewById(R.id.ivRetweet);
-        ivEmbedded = (ImageView) findViewById(R.id.ivEmbedded);
-        ivCompose = (ImageView) findViewById(R.id.ivCompose);
+        ButterKnife.bind(this);
 
         // Extract tweet from intent extras
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
